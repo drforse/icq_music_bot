@@ -4,7 +4,7 @@ from bot.filter import Filter
 import logging
 
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 MusicFiles().register(filters=Filter.file)
