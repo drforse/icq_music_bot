@@ -19,7 +19,7 @@ class Bot(Bot):
         file_info = result['result']['info']
         return file_info
 
-    def donwload_file(self, file_id: str, path: typing.Union[pathlib.WindowsPath, str] = None,
+    def download_file(self, file_id: str, path: typing.Union[pathlib.WindowsPath, pathlib.PosixPath, str] = None,
                       name: str = None) -> pathlib.WindowsPath:
         if type(path) == str:
             path = pathlib.Path(path)
@@ -35,7 +35,8 @@ class Bot(Bot):
         logging.debug('%s is loaded.' % file_name)
         return path / file_name
 
-    def send_audio(self, file: typing.Union[int, pathlib.WindowsPath, str, io.BytesIO, io.FileIO], chat_id):
+    def send_audio(self, file: typing.Union[int, pathlib.WindowsPath, pathlib.PosixPath,
+                                            str, io.BytesIO, io.FileIO], chat_id):
         logging.debug('sending %s' % file)
         if type(file) == io.BytesIO:
             file.name = "hello_voice.mp3"
@@ -55,7 +56,7 @@ class Bot(Bot):
             result = bot.send_voice(chat_id, file=file.read())
             logging.debug('%s sent' % file)
             return result.json()['fileId']
-        if type(file) == pathlib.WindowsPath or type(file) == str:
+        if type(file) in (pathlib.WindowsPath, pathlib.PosixPath) or type(file) == str:
             with open(file, 'rb') as f:
                 return _send_fileio(f)
         if type(file) == io.FileIO:

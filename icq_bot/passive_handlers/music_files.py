@@ -18,6 +18,6 @@ class MusicFiles(Command):
         if True not in [file_info['file_name'].endswith(f) for f in formats]:
             logging.debug('%s is not audio, so not continuing...' % file_info['file_name'])
             return
-        file_path = self._bot.donwload_file(file_id=event.data['parts'][0]['payload']['fileId'],
+        file_path = self._bot.download_file(file_id=event.data['parts'][0]['payload']['fileId'],
                                             path=pathlib.Path.cwd() / pathlib.Path('music_files'))
         self._bot.send_audio(file_path, event.data['chat']['chatId'])
