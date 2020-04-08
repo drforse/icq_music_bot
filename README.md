@@ -1,2 +1,4 @@
 # icq_music_bot
-icq bot for transfering music files into voices (todo: search music in web)
+icq bot for transfering music files into voices 
+# TODO:
+ search music in web
