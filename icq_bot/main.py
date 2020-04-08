@@ -4,6 +4,7 @@ import io
 import requests
 import pathlib
 import typing
+import logging
 
 
 class Bot(Bot):
@@ -27,10 +28,11 @@ class Bot(Bot):
         file_info = self.get_file_info(file_id)
         file_name = name or file_info['file_name']
         file_dlink = file_info['dlink']
+        logging.debug('%s is loading...' % file_name)
         r = requests.get(file_dlink)
-        print(path)
         with open(path / file_name, 'wb') as f:
             f.write(r.content)
+        logging.debug('%s is loaded.' % file_name)
         return path / file_name
 
     def send_audio(self, file: typing.Union[int, pathlib.WindowsPath, str, io.BytesIO, io.FileIO], chat_id):
