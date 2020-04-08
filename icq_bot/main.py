@@ -36,13 +36,16 @@ class Bot(Bot):
         return path / file_name
 
     def send_audio(self, file: typing.Union[int, pathlib.WindowsPath, str, io.BytesIO, io.FileIO], chat_id):
+        logging.debug('sending %s' % file)
         if type(file) == io.BytesIO:
             file.name = "hello_voice.mp3"
             file.seek(0)
             result = bot.send_voice(chat_id, file=file.read())
+            logging.debug('%s sent' % file)
             return result.json()['fileId']
         if type(file) == int:
             result = bot.send_voice(chat_id, file=file)
+            logging.debug('%s sent' % file)
             return result.json()['fileId']
 
         def _send_fileio(file):
@@ -50,6 +53,7 @@ class Bot(Bot):
             file.name = "hello_voice.mp3"
             file.seek(0)
             result = bot.send_voice(chat_id, file=file.read())
+            logging.debug('%s sent' % file)
             return result.json()['fileId']
         if type(file) == pathlib.WindowsPath or type(file) == str:
             with open(file, 'rb') as f:
