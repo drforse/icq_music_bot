@@ -17,11 +17,11 @@ class Search(Command):
         elif reply:
             search_query = reply[0]['payload']['message']['text']
         else:
-            self._bot.send_text(chat_id, 'You should provide an arguments to the command or reply to a text message')
+            self._bot.send_text(chat_id, 'You should provide an argument to the command or reply to a text message')
             return
 
         if not search_query:
-            self._bot.send_text(chat_id, 'You should provide an arguments to the command or reply to a text message')
+            self._bot.send_text(chat_id, 'You should provide an argument to the command or reply to a text message')
             return
 
         results = SearchMusic(search_query).get_results(maxResults=10)
