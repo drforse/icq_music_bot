@@ -1,6 +1,7 @@
 from ..main import bot
 from bot.event import Event
-from bot.handler import MessageHandler, CommandHandler
+from bot.handler import MessageHandler
+from bot.handler import CommandHandler
 
 
 class Command:
