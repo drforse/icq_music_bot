@@ -23,16 +23,16 @@ class Search:
         self.results = [SearchResult(res) for res in self._results['items'][offset:]]
         return self.results
 
-    # async def get_filtered_results(self, func: typing.Callable = None, *args, **kwargs):
-    #     results = self.results or await self.get_results()
-    #     if not func:
-    #         func = self.default_filter
-    #         args = [self.q, ]
-    #     return [res for res in results if await func(res, *args, **kwargs)]
-    #
-    # @staticmethod
-    # async def default_filter(res: SearchResult, *args, **kwargs):
-    #     print(args[0], res.title)
-    #     if args[0].lower() in res.title.lower():
-    #         return True
-    #     return False
+    def filter(self, func: typing.Callable = None, *args, **kwargs):
+        results = self.results or self.get_results()
+        if not func:
+            func = self.default_filter
+            args = [self.q, ]
+        return [res for res in results if func(res, *args, **kwargs)]
+
+    @staticmethod
+    def default_filter(res: SearchResult, *args, **kwargs):
+        print(args[0], res.title)
+        if args[0].lower() in res.title.lower():
+            return True
+        return False

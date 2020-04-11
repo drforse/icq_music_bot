@@ -24,7 +24,8 @@ class Search(Command):
             self._bot.send_text(chat_id, 'You should provide an argument to the command or reply to a text message')
             return
 
-        results = SearchMusic(search_query).get_results(maxResults=10)
+        sm = SearchMusic(search_query)
+        results = sm.get_results(maxResults=10, videoDuration='medium')
         kb = []
         for result in results:
             kb.append([{'text': result.title, 'callbackData': f'youtube_music {result.id}'}])
